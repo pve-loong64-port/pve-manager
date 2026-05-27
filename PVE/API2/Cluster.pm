@@ -499,7 +499,7 @@ __PACKAGE__->register_method({
                 'host-arch' => {
                     description => "The node's CPU architecture. (for type 'node').",
                     type => 'string',
-                    enum => [qw(x86_64 aarch64)],
+                    enum => [qw(x86_64 aarch64 loongarch64)],
                     default => 'x86_64',
                     optional => 1,
                 },
