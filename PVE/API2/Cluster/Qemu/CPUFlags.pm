@@ -16,7 +16,7 @@ __PACKAGE__->register_method({
     path => '',
     method => 'GET',
     description => "List of available CPU flags. Currently only implemented for x86_64,"
-        . " returns an empty list for aarch64.",
+        . " returns an empty list for aarch64 and loongarch64.",
     permissions => {
         check => [
             'or',
