@@ -67,6 +67,21 @@ Ext.define('PVE.qemu.OSDefaults', {
                 scsihw: 'virtio-scsi-single',
                 bios: 'ovmf',
             },
+
+            loongarch64: {
+                // loongarch64 has no ide, and ovmf can't boot from sata
+                busType: 'scsi',
+                networkCard: 'e1000',
+                busPriority: {
+                    scsi: 4,
+                    sata: 3,
+                    virtio: 2,
+                    ide: 1,
+                },
+                scsihw: 'virtio-scsi-single',
+                cputype: 'la464',
+                bios: 'ovmf',
+            },
         };
 
         // virtio-net is in kernel since 2.6.25
@@ -85,6 +100,15 @@ Ext.define('PVE.qemu.OSDefaults', {
 
             architectures: {
                 aarch64: {
+                    busPriority: {
+                        scsi: 4,
+                        virtio: 2,
+                        sata: 2,
+                        ide: 1,
+                    },
+                    networkCard: 'virtio',
+                },
+                loongarch64: {
                     busPriority: {
                         scsi: 4,
                         virtio: 2,
