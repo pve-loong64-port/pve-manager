@@ -10,6 +10,7 @@ Ext.define('PVE.qemu.Architecture', {
         ['__default__', `${Proxmox.Utils.defaultText} (${gettext('Host Architecture')})`],
         ['x86_64', gettext('x86 (64-bit)')],
         ['aarch64', gettext('ARM (64-bit)')],
+        ['loongarch64', gettext('LoongArch (64-bit)')],
     ],
 
     // filter for PVE.Utils.kvm_ostypes
@@ -22,21 +23,28 @@ Ext.define('PVE.qemu.Architecture', {
             bases: ['Linux', 'Other'],
             ostypes: ['l26', 'other'],
         },
+        loongarch64: {
+            bases: ['Linux', 'Other'],
+            ostypes: ['l26', 'other'],
+        },
     },
 
     defaultProcessorModel: {
         x86_64: 'x86-64-v2-AES',
         aarch64: 'host',
+        loongarch64: 'la464',
     },
 
     defaultMachines: {
         x86_64: 'pc',
         aarch64: 'virt',
+        loongarch64: 'virt',
     },
 
     defaultCDDrive: {
         x86_64: ['ide', 2],
         aarch64: ['scsi', 2],
+        loongarch64: ['scsi', 2],
     },
 
     allowedScsiHw: {
@@ -50,21 +58,25 @@ Ext.define('PVE.qemu.Architecture', {
             'pvscsi',
         ],
         aarch64: ['virtio-scsi-pci', 'virtio-scsi-single'],
+        loongarch64: ['virtio-scsi-pci', 'virtio-scsi-single'],
     },
 
     allowedMachines: {
         x86_64: ['__default__', 'q35'], // __default__ is i440fx
         aarch64: ['__default__'], // __default__ is virt
+        loongarch64: ['__default__'], // __default__ is virt
     },
 
     allowedBusses: {
         x86_64: ['ide', 'sata', 'virtio', 'scsi', 'unused'],
         aarch64: ['sata', 'virtio', 'scsi', 'unused'],
+        loongarch64: ['sata', 'virtio', 'scsi', 'unused'],
     },
 
     allowedFirmware: {
         x86_64: ['__default__', 'seabios', 'ovmf'], // default is seabios
         aarch64: ['ovmf'],
+        loongarch64: ['ovmf'],
     },
 
     allowedTPMVersions: {
@@ -79,6 +91,8 @@ Ext.define('PVE.qemu.Architecture', {
                 return gettext('x86 (64-bit)');
             case 'aarch64':
                 return gettext('ARM (64-bit)');
+            case 'loongarch64':
+                return gettext('LoongArch (64-bit)');
             default:
                 return Proxmox.Utils.unknownText;
         }
