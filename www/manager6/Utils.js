@@ -545,16 +545,16 @@ Ext.define('PVE.Utils', {
         },
 
         render_qemu_bios: function (value, arch = 'x86_64') {
+            let biosTextMap = {
+                seabios: 'SeaBIOS',
+                ovmf: 'OVMF (UEFI)',
+            };
             if (!value) {
-                let defaultBios = arch === 'aarch64' ? 'OVMF (UEFI)' : 'SeaBIOS';
-                return `${Proxmox.Utils.defaultText} (${defaultBios})`;
-            } else if (value === 'seabios') {
-                return 'SeaBIOS';
-            } else if (value === 'ovmf') {
-                return 'OVMF (UEFI)';
-            } else {
-                return value;
+                let bios = PVE.qemu.Architecture.defaultBios[arch];
+                let biosText = biosTextMap[bios] ?? bios;
+                return `${Proxmox.Utils.defaultText} (${biosText})`;
             }
+            return biosTextMap[value];
         },
 
         render_dc_ha_opts: function (value) {
