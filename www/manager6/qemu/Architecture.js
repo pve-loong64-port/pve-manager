@@ -34,6 +34,11 @@ Ext.define('PVE.qemu.Architecture', {
         aarch64: 'virt',
     },
 
+    defaultBios: {
+        x86_64: 'seabios',
+        aarch64: 'ovmf',
+    },
+
     defaultCDDrive: {
         x86_64: ['ide', 2],
         aarch64: ['scsi', 2],
