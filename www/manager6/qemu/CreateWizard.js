@@ -310,8 +310,9 @@ Ext.define('PVE.qemu.CreateWizard', {
                     }
 
                     if (
-                        kv.arch &&
-                        !PVE.qemu.Architecture.isHostArchitecture(kv.arch, kv.nodename)
+                        (kv.arch &&
+                            !PVE.qemu.Architecture.isHostArchitecture(kv.arch, kv.nodename)) ||
+                        !PVE.qemu.Architecture.isVirtualizationSupported(kv.nodename)
                     ) {
                         kv.kvm = 0;
                     }
