@@ -216,6 +216,18 @@ Ext.define('PVE.data.ResourceStore', {
                 type: 'string',
                 hidden: true,
             },
+            'host-supports-virtualization': {
+                header: gettext('Virtualization'),
+                defaultValue: true,
+                type: 'boolean',
+                hidden: true,
+                convert: function (value, record) {
+                    let host_supports_virtualization = record.data['host-supports-virtualization'];
+                    return (
+                        host_supports_virtualization === null || host_supports_virtualization === 1
+                    );
+                },
+            },
             cpu: {
                 header: gettext('CPU usage'),
                 type: 'float',
