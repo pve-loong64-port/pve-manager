@@ -123,4 +123,12 @@ Ext.define('PVE.qemu.Architecture', {
         let hostArch = PVE.qemu.Architecture.getNodeArchitecture(nodename);
         return (architecture ?? hostArch) === hostArch;
     },
+
+    // returns if the given node's CPU supports virtualization
+    isVirtualizationSupported: function (nodename) {
+        return (
+            PVE.data.ResourceStore.getNodeById(nodename)?.data['host-supports-virtualization'] ??
+            true
+        );
+    },
 });
