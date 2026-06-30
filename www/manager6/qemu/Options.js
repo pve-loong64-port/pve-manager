@@ -209,21 +209,23 @@ Ext.define('PVE.qemu.Options', {
                 header: gettext('KVM hardware virtualization'),
                 defaultValue: true,
                 renderer: Proxmox.Utils.format_boolean,
-                editor: caps.vms['VM.Config.HWType']
-                    ? {
-                          xtype: 'proxmoxWindowEdit',
-                          subject: gettext('KVM hardware virtualization'),
-                          items: {
-                              xtype: 'proxmoxcheckbox',
-                              name: 'kvm',
-                              checked: true,
-                              uncheckedValue: 0,
-                              defaultValue: 1,
-                              deleteDefaultValue: true,
-                              fieldLabel: gettext('Enabled'),
-                          },
-                      }
-                    : undefined,
+                editor:
+                    caps.vms['VM.Config.HWType'] &&
+                    PVE.qemu.Architecture.isVirtualizationSupported(nodename)
+                        ? {
+                              xtype: 'proxmoxWindowEdit',
+                              subject: gettext('KVM hardware virtualization'),
+                              items: {
+                                  xtype: 'proxmoxcheckbox',
+                                  name: 'kvm',
+                                  checked: true,
+                                  uncheckedValue: 0,
+                                  defaultValue: 1,
+                                  deleteDefaultValue: true,
+                                  fieldLabel: gettext('Enabled'),
+                              },
+                          }
+                        : undefined,
             },
             freeze: {
                 header: gettext('Freeze CPU at startup'),
