@@ -524,6 +524,12 @@ __PACKAGE__->register_method({
                     default => 'x86_64',
                     optional => 1,
                 },
+                'host-supports-virtualization' => {
+                    description => "The node's CPU supports virtualization.",
+                    type => "boolean",
+                    optional => 1,
+                    default => 1,
+                },
             },
         },
     },
@@ -657,6 +663,11 @@ __PACKAGE__->register_method({
                 }
                 if (defined(my $host_arch = $info->{'host-arch'})) {
                     $entry->{'host-arch'} = $host_arch;
+                }
+                if (defined(
+                    my $host_supports_virtualization = $info->{'host-supports-virtualization'}
+                )) {
+                    $entry->{'host-supports-virtualization'} = $host_supports_virtualization;
                 }
                 if (defined(my $status = $hastatus->{node_status}->{$node})) {
                     $entry->{'hastate'} = $status;

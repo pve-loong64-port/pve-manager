@@ -24,6 +24,7 @@ use PVE::Multipath::Status;
 use PVE::MultipathNotification;
 use PVE::QemuServer;
 use PVE::QemuServer::Monitor;
+use PVE::QemuServer::CPUConfig;
 use PVE::LXC;
 use PVE::CGroup;
 use PVE::LXC::Config;
@@ -143,6 +144,8 @@ my sub broadcast_static_node_info {
     syslog('err', "cgroup mode error: $@") if $@;
 
     my $host_arch = PVE::Tools::get_host_arch();
+    my $host_supports_virtualization =
+        PVE::QemuServer::CPUConfig::is_virtualization_supported_by_cpu($host_arch);
 
     my $old = PVE::Cluster::get_node_kv('static-info', $nodename);
     $old = eval { decode_json($old->{$nodename}) } if defined($old->{$nodename});
@@ -156,6 +159,12 @@ my sub broadcast_static_node_info {
         || (defined($host_arch)
             && $host_arch ne 'x86_64'
             && (!defined($old->{'host-arch'}) || $old->{'host-arch'} ne $host_arch))
+        || (
+            defined($host_supports_virtualization)
+            && !$host_supports_virtualization
+            && (!defined($old->{'host-supports-virtualization'})
+                || $old->{'host-supports-virtualization'} ne $host_supports_virtualization)
+        )
     ) {
         my $info = {
             cpus => $cpus,
@@ -164,6 +173,9 @@ my sub broadcast_static_node_info {
 
         # only save architecture info for non-x86 ones
         $info->{'host-arch'} = $host_arch if defined($host_arch) && $host_arch ne 'x86_64';
+
+        $info->{'host-supports-virtualization'} = $host_supports_virtualization
+            if defined($host_supports_virtualization) && !$host_supports_virtualization;
 
         $info->{'cgroup-mode'} = $cgroup_mode if defined($cgroup_mode);
         PVE::Cluster::broadcast_node_kv('static-info', encode_json($info));
