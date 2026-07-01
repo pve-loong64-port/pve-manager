@@ -1,10 +1,7 @@
 
 DOCDIR=/usr/share/doc/pve-manager/
 
-TRUSTED_KEYS=				\
-	proxmox-release-bookworm.gpg	\
-	proxmox-release-trixie.gpg	\
-	release@turnkeylinux.com.pubkey
+TRUSTED_KEYS=pve-loong64.pgp
 
 all:
 
@@ -16,7 +13,8 @@ install: aplinfo.dat trustedkeys.gpg
 .PHONY: update
 update:
 	rm -f aplinfo.dat
-	wget http://download.proxmox.com/images/aplinfo-pve-9.dat -O aplinfo.dat.tmp
+	#wget http://download.proxmox.com/images/aplinfo-pve-9.dat -O aplinfo.dat.tmp
+	wget http://pve.loongfans.cn/images/aplinfo.dat -O aplinfo.dat.tmp
 	mv aplinfo.dat.tmp aplinfo.dat
 
 trustedkeys.gpg: $(TRUSTED_KEYS)
