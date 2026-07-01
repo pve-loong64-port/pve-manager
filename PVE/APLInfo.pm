@@ -199,13 +199,8 @@ sub download_aplinfo {
 sub get_apl_sources {
     my $sources = [
         {
-            host => "download.proxmox.com",
-            url => "http://download.proxmox.com/images",
-            file => 'aplinfo-pve-9.dat',
-        },
-        {
-            host => "releases.turnkeylinux.org",
-            url => "https://releases.turnkeylinux.org/pve",
+            host => "pve.loongfans.cn",
+            url => "https://pve.loongfans.cn/images",
             file => 'aplinfo.dat',
         },
     ];
