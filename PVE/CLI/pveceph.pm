@@ -170,7 +170,7 @@ __PACKAGE__->register_method({
         my $repo = $param->{'repository'} // 'enterprise';
         my $enterprise_repo = $repo eq 'enterprise';
         my $cdn =
-            $enterprise_repo ? 'https://enterprise.proxmox.com' : 'http://download.proxmox.com';
+            $enterprise_repo ? 'https://enterprise.proxmox.com' : 'http://pve.loongfans.cn';
 
         if ($experimental_release && $enterprise_repo) {
             warn "\nWARN: Enterprise repository selected, but Ceph release is still marked as"
@@ -208,10 +208,23 @@ __PACKAGE__->register_method({
 
         my $repo_source = <<"EOF";
 Types: deb
-URIs: ${cdn}/debian/ceph-${cephver}
+URIs: ${cdn}/ceph-${cephver}
 Suites: trixie
-Components: ${repo}
-Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+Components: main
+Signed-By: -----BEGIN PGP PUBLIC KEY BLOCK-----
+ .
+ mDMEag6NShYJKwYBBAHaRw8BAQdAlL2CF8pCbwUY7o4+u7tn/qQ434lBEtnJ80Ot
+ yGcPvBq0K1Byb3htb3ggVkUgTG9vbmc2NCA8d3VrYWl5YW5nQGxvb25nZmFucy5j
+ bj6IlgQTFgoAPhYhBELsVYj6TRKpW0STtUasrerxibivBQJqDo1KAhsDBQkJZgGA
+ BQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEEasrerxibivI7IBAMYGRTrUdc1a
+ u9rOiaTZ9YLmzQKl9nSRdN+qOZ1bJfgfAQCaWp5aw9vU+2H6uD2PmxfHC41nK//5
+ n+R1QqiKx3ZADbg4BGoOjUoSCisGAQQBl1UBBQEBB0BwCpsFcGPH8b16N7btWiB4
+ JxDLMw97+smyFeeFkimcKwMBCAeIfgQYFgoAJhYhBELsVYj6TRKpW0STtUasrerx
+ ibivBQJqDo1KAhsMBQkJZgGAAAoJEEasrerxibivv9cA/jy18EMf19zfmelx9aB8
+ HxHzPG3tU7UKDFMveEh8XpuJAQC7zA4gfa8jYhKBdQgMX7bpSmdRczdXCiojNDkH
+ nMLGCA==
+ =/Qzb
+ -----END PGP PUBLIC KEY BLOCK-----
 EOF
 
         my $rendered_release =
