@@ -179,7 +179,7 @@ Ext.define('PVE.ceph.CephInstallWizard', {
     viewModel: {
         data: {
             nodename: '',
-            cephRepo: 'enterprise',
+            cephRepo: 'no-subscription',
             configuration: true,
             isInstalled: false,
             nodeHasSubscription: true, // avoid warning hint until fully loaded
@@ -384,14 +384,12 @@ Ext.define('PVE.ceph.CephInstallWizard', {
                             fieldLabel: gettext('Repository'),
                             padding: '0 0 0 10',
                             comboItems: [
-                                ['enterprise', gettext('Enterprise (recommended)')],
                                 ['no-subscription', gettext('No-Subscription')],
-                                ['test', gettext('Test')],
                                 ['manual', gettext('Manual')],
                             ],
                             labelWidth: 150,
                             submitValue: false,
-                            value: 'enterprise',
+                            value: 'no-subscription',
                             bind: {
                                 value: '{cephRepo}',
                             },
