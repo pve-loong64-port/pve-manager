@@ -1,3 +1,4 @@
+Enabled: false
 Types: deb
 URIs: https://enterprise.proxmox.com/debian/pve
 Suites: trixie
