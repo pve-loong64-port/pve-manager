@@ -138,8 +138,8 @@ __PACKAGE__->register_method({
             },
             repository => {
                 type => 'string',
-                enum => ['enterprise', 'no-subscription', 'test', 'manual'],
-                default => 'enterprise',
+                enum => ['no-subscription', 'manual'],
+                default => 'no-subscription',
                 description => "Ceph repository to use. The 'manual' option will not configure"
                     . " any repositories. Use it if the host cannot access the public repositories,"
                     . " for example if Proxmox Offline Mirror is used. A repository that contains"
@@ -167,7 +167,7 @@ __PACKAGE__->register_method({
 
         my $experimental_release = !!$available_ceph_releases->{$cephver}->{unsupported};
 
-        my $repo = $param->{'repository'} // 'enterprise';
+        my $repo = $param->{'repository'} // 'no-subscription';
         my $enterprise_repo = $repo eq 'enterprise';
         my $cdn =
             $enterprise_repo ? 'https://enterprise.proxmox.com' : 'http://pve.loongfans.cn';
