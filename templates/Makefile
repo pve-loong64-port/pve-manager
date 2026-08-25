@@ -11,6 +11,9 @@ NOTIFICATION_TEMPLATES=					\
 	default/package-updates-subject.txt.hbs		\
 	default/package-updates-body.txt.hbs		\
 	default/package-updates-body.html.hbs		\
+	default/vm-panicked-subject.txt.hbs		\
+	default/vm-panicked-body.txt.hbs		\
+	default/vm-panicked-body.html.hbs		\
 
 all:
 
