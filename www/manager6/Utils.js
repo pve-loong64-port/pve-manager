@@ -2250,6 +2250,7 @@ Ext.define('PVE.Utils', {
             vzdump: gettext('Backup notifications'),
             replication: gettext('Replication job notifications'),
             fencing: gettext('Node fencing notifications'),
+            'vm-panicked': gettext('Virtual machine panick notifications'),
         });
     },
 });
