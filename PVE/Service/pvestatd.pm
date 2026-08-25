@@ -16,6 +16,7 @@ use Filesys::Df;
 use PVE::INotify;
 use PVE::Network;
 use PVE::Network::SDN::Zones;
+use PVE::Notify;
 use PVE::RS::SDN::Fabrics;
 use PVE::NodeConfig;
 use PVE::Cluster qw(cfs_read_file);
@@ -337,6 +338,8 @@ sub auto_ballooning {
     }
 }
 
+my $panicked_vms = {};
+
 sub update_qemu_status {
     my ($status_cfg, $pull_txn) = @_;
 
@@ -352,6 +355,20 @@ sub update_qemu_status {
         my $data;
         my $status = $d->{qmpstatus} || $d->{status} || 'stopped';
         my $template = $d->{template} ? $d->{template} : "0";
+        if ($status eq 'guest-panicked') {
+            my $template_data = PVE::Notify::common_template_data();
+            $template_data->{"vmid"} = $vmid;
+            my $metadata_fields = {
+                type => "vm-panicked",
+                # Hostname (without domain part)
+                hostname => PVE::INotify::nodename(),
+            };
+            PVE::Notify::error("vm-panicked", $template_data, $metadata_fields)
+                if !exists($panicked_vms->{$vmid});
+            $panicked_vms->{$vmid} = 1;
+        } elsif (exists($panicked_vms->{$vmid})) {
+            delete $panicked_vms->{$vmid};
+        }
 
         # TODO: drop old pve2.3- schema with PVE 10
         if ($rrd_dir_exists->("pve-vm-9.0")) {
