@@ -191,6 +191,10 @@ __PACKAGE__->register_method({
                 value => 'system-mail',
                 field => 'type',
             },
+            {
+                value => 'vm-panicked',
+                field => 'type',
+            },
         ];
 
         # Here we need a manual permission check.
