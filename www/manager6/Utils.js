@@ -1776,6 +1776,7 @@ Ext.define('PVE.Utils', {
             rng: 1,
             tpmstate: 1,
             virtiofs: 10,
+            pvpanic: 1,
         },
 
         // we can have usb6 and up only for specific machine/ostypes

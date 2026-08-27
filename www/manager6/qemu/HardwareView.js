@@ -375,6 +375,13 @@ Ext.define('PVE.qemu.HardwareView', {
                 header: gettext('Virtiofs') + ' (' + confid + ')',
             };
         }
+        rows.pvpanic0 = {
+            group: 55,
+            iconCls: 'exclamation-triangle',
+            editor: caps.vms['VM.Config.HWType'] ? 'PVE.qemu.PvpanicEdit' : undefined,
+            never_delete: !caps.vms['VM.Config.HWType'],
+            header: gettext('Panic Monitor (pvpanic)'),
+        };
 
         var sorterFn = function (rec1, rec2) {
             var v1 = rec1.data.key;
@@ -738,6 +745,7 @@ Ext.define('PVE.qemu.HardwareView', {
             efidisk_menuitem.setDisabled(noVMConfigDiskPerm || isAtLimit('efidisk'));
             me.down('#addTpmState').setDisabled(noVMConfigDiskPerm || isAtLimit('tpmstate'));
             me.down('#addVirtiofs').setDisabled(noVMConfigOptionsPerm || isAtLimit('virtiofs'));
+            me.down('#addPvpanic').setDisabled(noVMConfigHWTypePerm || isAtLimit('pvpanic'));
             me.down('#addCloudinitDrive').setDisabled(
                 noVMConfigCDROMPerm || noVMConfigCloudinitPerm || hasCloudInit,
             );
@@ -917,6 +925,13 @@ Ext.define('PVE.qemu.HardwareView', {
                                 iconCls: 'fa fa-folder',
                                 disabled: !caps.nodes['Sys.Console'],
                                 handler: editorFactory('VirtiofsEdit'),
+                            },
+                            {
+                                text: gettext('Panic Monitor (pvpanic)'),
+                                itemId: 'addPvpanic',
+                                iconCls: 'fa fa-exclamation-triangle',
+                                disabled: !caps.vms['VM.Config.HWType'],
+                                handler: editorFactory('PvpanicEdit'),
                             },
                         ],
                     }),
