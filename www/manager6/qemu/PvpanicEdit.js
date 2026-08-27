@@ -3,6 +3,8 @@ Ext.define('PVE.qemu.PvpanicEdit', {
 
     subject: gettext('Panic Monitor (pvpanic)'),
 
+    onlineHelp: 'qm_pvpanic',
+
     items: [
         {
             xtype: 'pvePvpanicSelector',
