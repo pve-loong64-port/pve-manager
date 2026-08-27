@@ -65,6 +65,7 @@ JSSRC= 							\
 	form/PoolSelector.js				\
 	form/PreallocationSelector.js			\
 	form/PrivilegesSelector.js			\
+	form/PvpanicSelector.js				\
 	form/QemuBiosSelector.js			\
 	form/QemuMachineSelector.js			\
 	form/RecordSearchField.js			\
@@ -282,6 +283,7 @@ JSSRC= 							\
 	qemu/Options.js					\
 	qemu/PCIEdit.js					\
 	qemu/ProcessorEdit.js				\
+	qemu/PvpanicEdit.js				\
 	qemu/QemuBiosEdit.js				\
 	qemu/RNGEdit.js					\
 	qemu/SSHKey.js					\

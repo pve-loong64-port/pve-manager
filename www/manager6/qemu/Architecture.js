@@ -52,6 +52,11 @@ Ext.define('PVE.qemu.Architecture', {
         aarch64: ['virtio-scsi-pci', 'virtio-scsi-single'],
     },
 
+    allowedPvpanic: {
+        x86_64: ['pvpanic', 'pvpanic-pci'],
+        aarch64: ['pvpanic-pci'],
+    },
+
     allowedMachines: {
         x86_64: ['__default__', 'q35'], // __default__ is i440fx
         aarch64: ['__default__'], // __default__ is virt
