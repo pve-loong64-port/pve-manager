@@ -557,6 +557,24 @@ Ext.define('PVE.Utils', {
             }
         },
 
+        render_pvpanic: function (value) {
+            if (!value) {
+                return Proxmox.Utils.defaultText + ' (' + Proxmox.Utils.disabledText + ')';
+            }
+
+            let pvpanic = PVE.Parser.parsePropertyString(value, 'enabled');
+
+            if (!PVE.Parser.parseBoolean(pvpanic.enabled)) {
+                return Proxmox.Utils.disabledText;
+            }
+
+            if (pvpanic.action) {
+                return Proxmox.Utils.enabledText + `, Panic Action: ${pvpanic.action}`;
+            } else {
+                return Proxmox.Utils.enabledText + ', Panic Action: ' + Proxmox.Utils.defaultText + ' (shutdown)';
+            }
+        },
+
         render_dc_ha_opts: function (value) {
             if (!value) {
                 return Proxmox.Utils.defaultText;
