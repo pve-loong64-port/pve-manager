@@ -313,6 +313,26 @@ Ext.define('PVE.qemu.Options', {
                       }
                     : undefined,
             },
+            pvpanic: {
+                header: gettext('Panic Monitor'),
+                defaultValue: false,
+                renderer: Proxmox.Utils.format_boolean,
+                editor: caps.vms['VM.Config.HWType']
+                    ? {
+                          xtype: 'proxmoxWindowEdit',
+                          subject: gettext('Panic Monitor'),
+                          onlineHelp: 'qm_pvpanic',
+                          items: {
+                              xtype: 'proxmoxcheckbox',
+                              name: 'pvpanic',
+                              uncheckedValue: 0,
+                              defaultValue: 0,
+                              deleteDefaultValue: true,
+                              fieldLabel: gettext('Panic Monitor'),
+                          },
+                      }
+                    : undefined,
+            },
             protection: {
                 header: gettext('Protection'),
                 defaultValue: false,
