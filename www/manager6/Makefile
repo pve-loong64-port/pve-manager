@@ -65,6 +65,7 @@ JSSRC= 							\
 	form/PoolSelector.js				\
 	form/PreallocationSelector.js			\
 	form/PrivilegesSelector.js			\
+	form/PvpanicSelector.js			\
 	form/QemuBiosSelector.js			\
 	form/QemuMachineSelector.js			\
 	form/RecordSearchField.js			\
