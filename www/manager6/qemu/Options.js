@@ -311,6 +311,22 @@ Ext.define('PVE.qemu.Options', {
                       }
                     : undefined,
             },
+            pvpanic: {
+                header: gettext('Panic Monitor'),
+                defaultValue: false,
+                renderer: PVE.Utils.render_pvpanic,
+                editor: caps.vms['VM.Config.HWType']
+                    ? {
+                          xtype: 'proxmoxWindowEdit',
+                          subject: gettext('Panic Monitor'),
+                          onlineHelp: 'qm_pvpanic',
+                          items: {
+                              xtype: 'pvePvpanicSelector',
+                              name: 'pvpanic',
+                          },
+                      }
+                    : undefined,
+            },
             protection: {
                 header: gettext('Protection'),
                 defaultValue: false,
