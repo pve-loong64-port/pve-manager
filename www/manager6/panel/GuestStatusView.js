@@ -186,6 +186,8 @@ Ext.define('PVE.panel.GuestStatusView', {
         if (me.pveSelNode.data.type === 'lxc' && me.ostype && me.ostype !== 'unmanaged') {
             // Manual mappings for distros with special casing
             const namemap = {
+                alt: 'ALT Linux',
+                aosc: 'AOSC OS',
                 archlinux: 'Arch Linux',
                 nixos: 'NixOS',
                 opensuse: 'openSUSE',
