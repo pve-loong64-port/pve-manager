@@ -520,6 +520,13 @@ Ext.define('PVE.Utils', {
             return Proxmox.Utils.format_boolean(value);
         },
 
+        render_lats: function (value) {
+            if (value === '__default__') {
+                return Proxmox.Utils.defaultText + ' (' + gettext('Enabled when emulating x86_64 on loongarch64') + ')';
+            }
+            return Proxmox.Utils.format_boolean(value);
+        },
+
         render_qga_features: function (config) {
             if (!config) {
                 return Proxmox.Utils.defaultText + ' (' + Proxmox.Utils.disabledText + ')';

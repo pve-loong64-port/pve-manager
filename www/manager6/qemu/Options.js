@@ -227,6 +227,32 @@ Ext.define('PVE.qemu.Options', {
                           }
                         : undefined,
             },
+            lats: {
+                header: gettext('LoongArch binary translator'),
+                defaultValue: '__default__',
+                renderer: PVE.Utils.render_lats,
+                editor:
+                    caps.vms['VM.Config.HWType'] &&
+                    PVE.qemu.Architecture.isHostArchitecture('loongarch64', nodename)
+                        ? {
+                              xtype: 'proxmoxWindowEdit',
+                              subject: gettext('LoongArch binary translator'),
+                              width: 350,
+                              items: {
+                                  xtype: 'proxmoxKVComboBox',
+                                  name: 'lats',
+                                  value: '__default__',
+                                  comboItems: [
+                                      ['__default__', PVE.Utils.render_lats('__default__')],
+                                      [1, PVE.Utils.render_lats(1)],
+                                      [0, PVE.Utils.render_lats(0)],
+                                  ],
+                                  labelWidth: 140,
+                                  fieldLabel: gettext('Use LATS'),
+                              },
+                        }
+                : undefined,
+            },
             freeze: {
                 header: gettext('Freeze CPU at startup'),
                 defaultValue: false,
